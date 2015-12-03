@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="app">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body ng-controller="testCtrl">
+    <div>
+        <label>
+            Random
+            <input type="radio" name="radio" ng-model="random" ng-value="true" />
+        </label>
+        <label>
+            By Id
+            <input type="radio" name="radio" ng-model="random" ng-value="false" />
+            <input type="number" ng-model="objectId" />
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>
+            Number of Requests:
+            <input type="number" ng-model="requestCount" />
+            <button ng-click="makeRequests()">GO</button>
+        </label>
+    </div>
+    <div>
+        <br />
+        <button ng-click="clearResults()">Clear Results</button>
+    </div>
+    <div>
+        <h3>Pending:</h3>
+        <p>{{pendingRequests.length}}</p>
+    </div>
+    <div> 
+        <h3>Successes:</h3>
+        <p>{{successes.length}}</p>
+    </div>
+    <div>
+        <h3>Errors:</h3>
+        <p>{{errors.length}}</p>
+        <div ng-repeat="error in errors track by $index">
+            <p><strong>{{error.status}}:</strong> {{error.data.message}} - <a href="#" ng-click="showTrace = !showTrace">Stack Trace</a></p>
+            <table style="margin-left:50px">
+                <tbody ng-repeat="s in error.data.stackTrace track by $index">
+                    <tr ng-show="showTrace" >
+                        <td>{{s}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+</body>
+</html>
